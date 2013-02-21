@@ -11,8 +11,8 @@ public class Player extends Entity {
 
 	@Override
 	public void update(GameContainer gc, int delta) {
-		// TODO Auto-generated method stub
 		
 	}
+
 
 }

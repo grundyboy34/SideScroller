@@ -10,16 +10,23 @@ import org.newdawn.slick.SlickException;
 import com.grundyboy34.entities.Mob;
 
 public class SideScroller extends BasicGame {
-	Image background = null;
+	private Image background = null;
+	private static GameContainer gameContainer;
 
 	public SideScroller() {
 		super("SideScroller Test");
 	}
+	
+	public static GameContainer getGameContainer() {
+		return gameContainer;
+	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+		gameContainer = gc;
+		gc.setMinimumLogicUpdateInterval(15);
 		background = new Image("res/background.png");
-		World.addEntity(new Mob(500, 500, new Image("res/robot.png")));
+		World.addEntity(new Mob(500, 250, new Image("res/robot.png")));
 	
 	}
 
