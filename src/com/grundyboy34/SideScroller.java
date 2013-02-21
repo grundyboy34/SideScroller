@@ -6,13 +6,20 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
-import com.grundyboy34.entities.Mob;
+import com.grundyboy34.entities.Player;
+import com.grundyboy34.utils.LevelDataLoader;
+import com.grundyboy34.utils.ResourceManager;
 
 public class SideScroller extends BasicGame {
-	private Image background = null;
 	private static GameContainer gameContainer;
-
+	private static World world;
+	private static ResourceManager resourceManager;
+	private static Player player;
+	private static Camera camera;
+	private final static String levelsDirectory = "levels/default/";
+	
 	public SideScroller() {
 		super("SideScroller Test");
 	}
@@ -23,25 +30,47 @@ public class SideScroller extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+		try {
+			new LevelDataLoader(levelsDirectory + "/1/grids/layout.xml");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		gameContainer = gc;
+		gc.setShowFPS(false);
 		gc.setMinimumLogicUpdateInterval(15);
-		background = new Image("res/background.png");
-		World.addEntity(new Mob(500, 250, new Image("res/robot.png")));
-	
+		resourceManager = new ResourceManager();
+		world = new World(new Image("levels/1/grids/background.png"), new Vector2f(1280f, 720f));
+		player = new Player(500, 250, new Image("levels/1/entities/player.png"), 120);
+		world.addEntity(player);
+		camera = new Camera(world, player);
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		World.updateEntities(gc, delta);
+		world.update(gc, delta);
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		for (int i = 0; i < 30; i++) {
-			background.draw(i * gc.getWidth(), 0);
-		}
-		World.drawEntities();
+		world.render(gc, g, camera);
 	}
-
+	
+	public World getWorld() {
+		return world;
+	}
+	
+	public ResourceManager getResourceManager() {
+		return resourceManager;
+	}
+	
+	public Camera getCamera() {
+		return camera;
+	}
+	
+	public static String getLevelsDirectory() {
+		return levelsDirectory;
+	}
+	
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new SideScroller());
 		app.setDisplayMode(1280, 720, false);

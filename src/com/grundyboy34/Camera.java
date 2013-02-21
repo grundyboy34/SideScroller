@@ -12,9 +12,20 @@ public class Camera {
 	}
 	
 	public float getX() {
-		return player.getPosition().getX();
-	}
+		//return getCurrentGrid() * world.getSize().getX();
+		float x = player.getPosition().getX() - (world.getSize().getX() / 2);
+		
+		if (x < 0) {
+			x = 0;
+		}
+		
+		return x;
+	}	
 	
+	public int getCurrentGrid() {
+		return (int) (player.getPosition().getX() / world.getSize().getX());			
+	}
+
 	public float getY() {
 		return player.getPosition().getY();
 	}
