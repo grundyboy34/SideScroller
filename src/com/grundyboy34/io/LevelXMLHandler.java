@@ -20,10 +20,6 @@ import com.thoughtworks.xstream.XStream;
 public final class LevelXMLHandler {
 	  private static XStream xmlHandler;   
 
-    public LevelXMLHandler() {
-    
-    }
-    
     static {
         xmlHandler = new XStream();
         xmlHandler.alias("level", Level.class);

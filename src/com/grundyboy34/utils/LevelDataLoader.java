@@ -1,48 +1,41 @@
 package com.grundyboy34.utils;
 
-import java.util.ArrayList;
-
+import java.io.File;
+import java.io.IOException;
+import com.grundyboy34.SideScroller;
 import com.grundyboy34.io.LevelXMLHandler;
-import com.grundyboy34.level.Grid;
 import com.grundyboy34.level.Level;
 
 public class LevelDataLoader {
-	private ArrayList<Level> levelList = new ArrayList<Level>();
-	private LevelXMLHandler xmlHander = new LevelXMLHandler();
-	
-	public LevelDataLoader(String filePath) throws Exception {
-		Level testLevel = new Level("TestLevel");
-		testLevel.addGrid(new Grid("background"));
-		levelList.add(testLevel);
-		saveData(filePath);
-		//readData(filePath);
-	}
-	
-	private void readData(String file) throws Exception {
-	/*	BufferedReader in = new BufferedReader(new FileReader(file));
-		while (in.ready()) {
-			String line = in.readLine().trim();
-			
-		}*/
-		
-		levelList = xmlHander.fromXML(file);
-		for (int i = 0; i < levelList.size(); i++) {
-			System.out.println(levelList.get(i));
+
+	private static void loadLevel(File file) {
+
+		Level level = null;
+		String filePath = file.getAbsolutePath();
+		String levelResourcePath = file.getParentFile().getAbsolutePath();
+		try {
+			level = LevelXMLHandler.fromXML(filePath);
+			level.setResourceManager(new ResourceManager(levelResourcePath));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
+		if (level != null) {
+			SideScroller.getWorld().addLevel(level);
+		}
 	}
-	
-	private void saveData(String file) throws Exception {
-	/*	BufferedReader in = new BufferedReader(new FileReader(file));
-		while (in.ready()) {
-			String line = in.readLine().trim();
-			
-		}*/
-		
-		xmlHander.toXML(file, levelList);
-		
+
+	public static void loadLevels() {
+		File lvlDir = new File(SideScroller.getLevelsDirectory());
+
+		for (File lvl : lvlDir.listFiles()) {
+			for (File lvlFile : lvl.listFiles()) {
+
+				if (lvlFile.isFile() && lvlFile.getName().equals("level.xml")) {
+					loadLevel(lvlFile);
+				}
+			}
+		}
+
 	}
-	
-	
 
 }

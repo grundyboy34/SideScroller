@@ -1,0 +1,17 @@
+  <level>
+    <name>TestLevel</name>
+    <gridlist>
+      <grid>
+		<background>background</background>
+        <enemies/>
+          <obstacles>
+			<obstacle>
+			<image>box</image>
+			<x>250</x>
+			<y>250</y>
+			<weight>600</weight>
+			</obstacle>
+		</obstacles>
+      </grid>
+    </gridlist>
+  </level>

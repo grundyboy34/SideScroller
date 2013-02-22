@@ -3,17 +3,14 @@ package com.grundyboy34;
 import com.grundyboy34.entities.Player;
 
 public class Camera {
-	private final World world;
 	private final Player player;
 	
-	public Camera(World world, Player player) {
-		this.world = world;
+	public Camera(Player player) {
 		this.player = player;
 	}
 	
 	public float getX() {
-		//return getCurrentGrid() * world.getSize().getX();
-		float x = player.getPosition().getX() - (world.getSize().getX() / 2);
+		float x = player.getPosition().getX() - (SideScroller.getSize().getX() / 2);
 		
 		if (x < 0) {
 			x = 0;
@@ -23,7 +20,7 @@ public class Camera {
 	}	
 	
 	public int getCurrentGrid() {
-		return (int) (player.getPosition().getX() / world.getSize().getX());			
+		return (int) (player.getPosition().getX() / SideScroller.getSize().getX());			
 	}
 
 	public float getY() {

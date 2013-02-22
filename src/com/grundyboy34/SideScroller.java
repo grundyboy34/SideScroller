@@ -9,19 +9,19 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.grundyboy34.entities.Player;
+import com.grundyboy34.level.Level;
 import com.grundyboy34.utils.LevelDataLoader;
 import com.grundyboy34.utils.ResourceManager;
 
 public class SideScroller extends BasicGame {
 	private static GameContainer gameContainer;
 	private static World world;
-	private static ResourceManager resourceManager;
-	private static Player player;
-	private static Camera camera;
-	private final static String levelsDirectory = "levels/default/";
+	private static Menu menu;
+	private final static String levelsDirectory = "levels/";
 	
 	public SideScroller() {
 		super("SideScroller Test");
+		
 	}
 	
 	public static GameContainer getGameContainer() {
@@ -29,21 +29,14 @@ public class SideScroller extends BasicGame {
 	}
 
 	@Override
-	public void init(GameContainer gc) throws SlickException {
-		try {
-			new LevelDataLoader(levelsDirectory + "/1/grids/layout.xml");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void init(GameContainer gc) throws SlickException {	
 		gameContainer = gc;
 		gc.setShowFPS(false);
 		gc.setMinimumLogicUpdateInterval(15);
-		resourceManager = new ResourceManager();
-		world = new World(new Image("levels/1/grids/background.png"), new Vector2f(1280f, 720f));
-		player = new Player(500, 250, new Image("levels/1/entities/player.png"), 120);
-		world.addEntity(player);
-		camera = new Camera(world, player);
+		menu = new Menu();
+		world = new World();
+		LevelDataLoader.loadLevels();
+		world.setCurrentLevel(1);
 	}
 
 	@Override
@@ -52,23 +45,21 @@ public class SideScroller extends BasicGame {
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		world.render(gc, g, camera);
+		world.render(gc, g);
 	}
 	
-	public World getWorld() {
+	public static World getWorld() {
+		if (world == null)
+			System.out.println("WTF");
 		return world;
-	}
-	
-	public ResourceManager getResourceManager() {
-		return resourceManager;
-	}
-	
-	public Camera getCamera() {
-		return camera;
 	}
 	
 	public static String getLevelsDirectory() {
 		return levelsDirectory;
+	}
+	
+	public static Vector2f getSize() {
+		return new Vector2f(gameContainer.getWidth(), gameContainer.getHeight());
 	}
 	
 	public static void main(String[] args) throws SlickException {
