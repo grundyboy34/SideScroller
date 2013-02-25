@@ -1,8 +1,6 @@
 package com.grundyboy34.entities;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
-
 import com.grundyboy34.level.Level;
 
 public class Mob extends Entity {

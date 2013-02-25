@@ -1,5 +1,7 @@
 package com.grundyboy34.physics;
 
+import com.grundyboy34.SideScroller;
+
 public class Physics {
 	private final static float gravity = 9.80f;
 	
@@ -9,5 +11,9 @@ public class Physics {
 	
 	public static float getFrictionalForce(float normalForce, float frictionalCoefficient) {		
 		return normalForce * frictionalCoefficient;
+	}
+	
+	public static float getMeterMultiplier() {
+		return 20f / (float) SideScroller.getGameContainer().getHeight();
 	}
 }

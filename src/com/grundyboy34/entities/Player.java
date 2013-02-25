@@ -1,7 +1,6 @@
 package com.grundyboy34.entities;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
 import com.grundyboy34.Camera;
@@ -41,7 +40,7 @@ public class Player extends Entity {
 	
 	
 	@Override
-	public void render(Camera camera, Level level) {
-		currentImage.draw(container.getX() - camera.getX(), container.getY() - currentImage.getHeight());
+	public void render(Level level) {
+			currentImage.draw(container.getX() - level.getCamera().getX(), container.getY() - currentImage.getHeight());
 	}
 }

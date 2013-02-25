@@ -10,18 +10,16 @@ public class Camera {
 	}
 	
 	public float getX() {
-		float x = player.getPosition().getX() - (SideScroller.getSize().getX() / 2);
+		float x = player.getPosition().getX() - (SideScroller.getGameContainer().getWidth() / 2);
 		
 		if (x < 0) {
 			x = 0;
+		} else if (x > SideScroller.getGameContainer().getWidth()) {
+			x = SideScroller.getGameContainer().getWidth();
 		}
 		
 		return x;
 	}	
-	
-	public int getCurrentGrid() {
-		return (int) (player.getPosition().getX() / SideScroller.getSize().getX());			
-	}
 
 	public float getY() {
 		return player.getPosition().getY();

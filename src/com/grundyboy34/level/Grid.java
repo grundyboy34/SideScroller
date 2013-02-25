@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-import com.grundyboy34.Camera;
 import com.grundyboy34.entities.Entity;
 import com.grundyboy34.entities.Mob;
 import com.grundyboy34.entities.Obstacle;
@@ -38,13 +37,15 @@ public class Grid {
 		}	
 	}
 
-	public void render(GameContainer gc, Graphics g, Camera camera, Level level) {
+	public void render(GameContainer gc, Graphics g, Level level) {
+			level.getResourceManager().getGrid(getBackground()).draw(-level.getCamera().getX(), 0);
+		
 		for (Entity e : enemies) {
-			e.render(camera, level);
+			e.render(level);
 		}	
 		
 		for (Entity e : obstacles) {
-			e.render(camera, level);
+			e.render(level);
 		}
 	}
 

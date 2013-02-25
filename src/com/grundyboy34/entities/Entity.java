@@ -18,7 +18,7 @@ abstract public class Entity {
 	protected transient Vector2f velocity;
 	protected final transient float runSpeed = 50f;
 	protected final transient float jumpSpeed = 15f;
-	protected final transient float gravity = .98f;
+	protected final transient float gravity = 9.80f;
 	protected float weight;
 
 	protected transient boolean jump = false;
@@ -37,6 +37,8 @@ abstract public class Entity {
 					level.getResourceManager().getEntity(image).getHeight());
 		this.currentImage = level.getResourceManager().getEntity(image);
 		velocity = new Vector2f();
+		
+		System.out.println("inited " + image + " - " + container.getWidth() + " - " + container.getHeight());
 	}
 	
 	public void initObstacle(Level level) {
@@ -57,12 +59,11 @@ abstract public class Entity {
 			jumpLockOut = true;
 		}
 
-		float newX = container.getX() + velocity.getX();
+		float newX = container.getX() + velocity.getX() * Physics.getMeterMultiplier();
 		float newY = container.getY() + velocity.getY();
-		float lowerBoundary = SideScroller.getGameContainer().getHeight();
 
-		if (newY > lowerBoundary) {
-			newY = lowerBoundary;
+		if (newY > SideScroller.getGameContainer().getHeight()) {
+			newY = SideScroller.getGameContainer().getHeight();
 			velocity.y = 0f;
 			if (jump) {
 				jumpLockOut = false;
@@ -87,8 +88,8 @@ abstract public class Entity {
 		return container;
 	}
 
-	public void render(Camera camera, Level level) {
-		currentImage.draw(container.getX() - camera.getX(), container.getY() - currentImage.getHeight());
+	public void render(Level level) {
+		currentImage.draw(container.getX() - level.getCamera().getX(), container.getY() - currentImage.getHeight());
 	}
 
 	abstract public void update(GameContainer gc, int delta, Level level);

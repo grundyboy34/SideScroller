@@ -8,7 +8,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.grundyboy34.Camera;
-import com.grundyboy34.SideScroller;
 import com.grundyboy34.entities.Player;
 import com.grundyboy34.utils.ResourceManager;
 
@@ -30,8 +29,25 @@ public class Level {
 		this.player = new Player(0, 0, 65);
 		player.init(this);
 		this.camera = new Camera(player);
-		currentGrid = gridlist.get(0);
-		currentGrid.init(this);
+		setCurrentGrid(0);
+	}
+	
+	public Grid getNextGrid() {
+		return gridlist.get(gridlist.indexOf(currentGrid) + 1);
+	}
+	
+	public Grid getLastGrid() {
+		return gridlist.get(gridlist.indexOf(currentGrid) - 1);
+	}
+	
+	public void setCurrentGrid(int index) {
+		setCurrentGrid(gridlist.get(index));
+	}
+	
+	
+	public void setCurrentGrid(Grid grid) {
+		grid.init(this);
+		currentGrid = grid;
 	}
 	
 	public Vector2f getSize() {
@@ -62,15 +78,25 @@ public class Level {
 	public ResourceManager getResourceManager() {
 		return resourceManager;
 	}
-
+	
+	public Camera getCamera() {
+		return camera;
+	}
+	
 	public void update(GameContainer gc, int delta) {
 		currentGrid.update(gc, delta, this);
 		player.update(gc, delta, this);
+		if (player.getPosition().getX() > getSize().getX()) {
+			setCurrentGrid(getNextGrid());
+			player.getPosition().setX(0);
+		} else if (player.getPosition().getX() < -80) {
+			setCurrentGrid(getLastGrid());
+			player.getPosition().setX(getSize().getX());
+		}
 	}
 
 	public void render(GameContainer gc, Graphics g) {
-		getResourceManager().getGrid(currentGrid.getBackground()).draw(-camera.getX(), 0);
-		currentGrid.render(gc, g, camera, this);
-		player.render(camera, this);
+		currentGrid.render(gc, g, this);
+		player.render(this);
 	}
 }

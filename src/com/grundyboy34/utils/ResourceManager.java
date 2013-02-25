@@ -32,7 +32,7 @@ public class ResourceManager {
 		return null;
 	}
 	
-	public String getEntityString(String name) {
+	public String getEntityImagePath(String name) {
 		return entities.get(name);
 	}
 	

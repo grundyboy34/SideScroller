@@ -6,8 +6,20 @@
         <enemies>
 			<mob>
 			<image>robot</image>
-			<x> 250 </x>
-			<y> 250 </y>
+			<x>250</x>
+			<y>0</y>
+			<weight>120</weight>
+			</mob>
+		</enemies>
+		<obstacles/>
+      </grid>
+	  <grid>
+		<background>second</background>
+        <enemies>
+			<mob>
+			<image>robot</image>
+			<x>250</x>
+			<y>720</y>
 			<weight>120</weight>
 			</mob>
 		</enemies>

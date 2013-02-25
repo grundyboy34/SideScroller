@@ -1,17 +1,9 @@
 package com.grundyboy34;
 
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Vector2f;
-
-import com.grundyboy34.entities.Entity;
-import com.grundyboy34.entities.Player;
 import com.grundyboy34.level.Level;
-import com.grundyboy34.utils.LevelDataLoader;
 
 public class World {
 	private final ArrayList<Level> levelList = new ArrayList<Level>();
