@@ -16,9 +16,8 @@ abstract public class Entity {
 	protected transient Rectangle container;
 	protected transient Image currentImage;
 	protected transient Vector2f velocity;
-	protected final transient float runSpeed = 50f;
-	protected final transient float jumpSpeed = 15f;
-	protected final transient float gravity = 9.80f;
+	protected final transient float runSpeed = 2000f;
+	protected final transient float jumpSpeed = 50f;
 	protected float weight;
 
 	protected transient boolean jump = false;
@@ -49,10 +48,9 @@ abstract public class Entity {
 	}
 
 	protected void move(Level level) {
-		velocity.y += gravity;
+		velocity.y += Physics.gravity;
 
-		velocity.x /= Math.sqrt(Physics.getFrictionalForce(
-				Physics.calculateNormalForce(weight), .35f));
+		velocity.x /= Math.sqrt(Physics.getFrictionalForce(Physics.calculateNormalForce(weight), .35f));
 
 		if (!jumpLockOut && jump) {
 			velocity.y -= jumpSpeed;

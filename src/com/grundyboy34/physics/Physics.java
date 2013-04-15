@@ -3,7 +3,7 @@ package com.grundyboy34.physics;
 import com.grundyboy34.SideScroller;
 
 public class Physics {
-	private final static float gravity = 9.80f;
+	public final static float gravity = 9.80f;
 	
 	public static float calculateNormalForce(float mass) {
 		return mass * gravity;

@@ -43,8 +43,6 @@ public class SideScroller extends BasicGame {
 	}
 	
 	public static World getWorld() {
-		if (world == null)
-			System.out.println("WTF");
 		return world;
 	}
 	
