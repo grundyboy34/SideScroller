@@ -15,6 +15,7 @@ public class LevelDataLoader {
 		String levelResourcePath = file.getParentFile().getAbsolutePath();
 		try {
 			level = LevelXMLHandler.fromXML(filePath);
+			System.out.println(levelResourcePath);
 			level.setResourceManager(new ResourceManager(levelResourcePath));
 		} catch (IOException e) {
 			e.printStackTrace();

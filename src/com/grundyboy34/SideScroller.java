@@ -1,5 +1,7 @@
 package com.grundyboy34;
 
+import java.io.File;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -11,11 +13,10 @@ public class SideScroller extends BasicGame {
 	private static GameContainer gameContainer;
 	private static World world;
 	private static Menu menu;
-	private final static String levelsDirectory = "levels/";
+	private final static String levelsDirectory = "levels" + File.separatorChar;
 	
 	public SideScroller() {
 		super("SideScroller Test");
-		
 	}
 	
 	public static GameContainer getGameContainer() {
