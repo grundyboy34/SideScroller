@@ -18,9 +18,9 @@ public class ResourceManager {
 	}
 	
 	public void loadResources() {		
-		loadFilesToHashMap(entities, new File(levelPath + "/entity/"));
-		loadFilesToHashMap(obstacles, new File(levelPath + "/obstacle/"));
-		loadFilesToHashMap(grids, new File(levelPath + "/grid/"));			
+		loadFilesToHashMap(entities, new File(levelPath + File.separatorChar + "entity" + File.separatorChar));
+		loadFilesToHashMap(obstacles, new File(levelPath + File.separatorChar + "obstacle" + File.separatorChar));
+		loadFilesToHashMap(grids, new File(levelPath + File.separatorChar + "grid" + File.separatorChar));			
 	}
 	
 	public Image getEntity(String name) {
